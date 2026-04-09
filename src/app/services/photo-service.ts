@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class PhotoService {
   static = {
     logo: 'logo.png',
-    menuIcon: 'menuIcon.svg',
+    headerPhoto: 'homeHeader.png',
+    headerDisc: 'headerDisc.png',
   };
 }

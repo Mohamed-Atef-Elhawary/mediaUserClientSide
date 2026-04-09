@@ -1,5 +1,12 @@
-<div class="flex flex-col justify-between min-h-screen px-4 sm:px-[5%]">
+<div class="flex flex-col gap-2 px-4 min-h-screen sm:px-[5%]">
   <app-navbar></app-navbar>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <div class="grow pt-16 pb-10">
+    <router-outlet></router-outlet>
+  </div>
+  <div>
+    <app-footer></app-footer>
+  </div>
 </div>
+<!-- <main class="flex-grow pt-16 pb-10"> 
+    <router-outlet></router-outlet>
+  </main> -->

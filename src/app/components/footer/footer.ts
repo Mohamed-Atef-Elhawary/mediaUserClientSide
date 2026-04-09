@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PhotoService } from '../../services/photo-service';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './footer.css',
 })
 export class Footer {
-
+  logo: string;
+  constructor(private photo: PhotoService) {
+    this.logo = this.photo.static.logo;
+  }
 }
