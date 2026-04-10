@@ -15,8 +15,7 @@ export const routes: Routes = [
   },
   // //////////////////////////////////////////////////////////
   {
-    path: 'speciality',
-    loadComponent: () =>
-      import('./components/home-speciality/home-speciality').then((c) => c.HomeSpeciality),
+    path: 'top',
+    loadComponent: () => import('./components/top-doctors/top-doctors').then((c) => c.TopDoctors),
   },
 ];

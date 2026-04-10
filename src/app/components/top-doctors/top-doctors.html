@@ -1,1 +1,38 @@
-<p>top-doctors works!</p>
+<div class="flex flex-col gap-10 text-center py-8 overflow-hidden bg-sky-50">
+  <div class="text-center">
+    <h2 class="font-semibold text-[4vw] text-dark mb-4">Top Doctors to Book</h2>
+    <p class="text-[2vw] text-secondary">
+      Simply browse through our extensive list of trusted doctors.
+    </p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    @for (doctor of allDoctors().slice(0, 10); track doctor._id) {
+      <article class="h-auto flex flex-col overflow-hidden p-[10px] bg-dark hover:bg-danger">
+        <div class="overflow-hidden w-full h-[70%] lg:h-[65%] p-2 shrink-0">
+          <img class="block w-full h-full object-cover" [src]="doctor.image" />
+        </div>
+        <div class="flex flex-col justify-evenly items-start p-2 mt-4 h-[30%] lg:h-[35%] shrink-0">
+          <div class="flex gap-2 items-center">
+            <p class="w-[15px] h-[15px] bg-green-500 rounded-full"></p>
+            <p class="text-green-500 text-[5vw] sm:text-[3vw] md:text-[2vw]">
+              {{ doctor.available ? 'Available' : 'Not Available' }}
+            </p>
+          </div>
+          <p class="font-bold text-[5vw] sm:text-[3vw] md:text-[2vw] text-white">
+            {{ doctor.name }}
+          </p>
+          <p class="text-primary font-semibold text-[5vw] sm:text-[3vw] md:text-[2vw]">
+            {{ doctor.speciality }}
+          </p>
+        </div>
+      </article>
+    }
+  </div>
+
+  <button
+    class="w-full bg-dark hover:bg-danger text-white font-semibold text-[4vw] px-1 py-2 lg:text-[2vw] md:px-3 md:py-6 shrink-0"
+  >
+    MORE
+  </button>
+</div>

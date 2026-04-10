@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';
+import { DoctorService } from './services/doctor-service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,9 @@ import { Footer } from './components/footer/footer';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('userClientSide');
+  protected readonly title = signal('mediaFlow');
+  constructor(private doctor: DoctorService) {}
+  ngOnInit() {
+    this.doctor.doctors().subscribe(console.log);
+  }
 }
