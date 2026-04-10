@@ -7,3 +7,7 @@
   --color-secondary: #6c757d;
   --color-dark: #212529;
 }
+
+::-webkit-scrollbar {
+  @apply hidden;
+}

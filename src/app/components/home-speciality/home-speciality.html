@@ -1,36 +1,62 @@
-<div>
-  <div>
-    <h2>Find by Speciality</h2>
-    <p>
+<div class="text-center px-6 py-8">
+  <div class="text-center mb-20">
+    <h2 class="font-semibold text-[4vw] text-dark mb-4">Find by Speciality</h2>
+    <p class="text-[2vw] text-secondary">
       Simply browse through our extensive list of trusted doctors,
       <br />
       schedule your appointment hassle-free.
     </p>
   </div>
-  <ul>
-    <li>
-      <img src="" alt="" />
-      <p>Heart Health</p>
+
+  <ul class="flex items-center lg:justify-between text-center gap-8 mx-auto overflow-x-scroll">
+    <li class="text-center shrink-0">
+      <img
+        class="w-20 h-20 lg:w-[8vw] lg:h-[8vw] block mx-auto mb-2 bg-sky-200 hover:bg-danger rounded-full"
+        [src]="staticSpecialityIcon['heart']"
+        alt=""
+      />
+
+      <p class="text-secondary text-[3vw] md:text-[2vw] font-semibold">Cardiology</p>
     </li>
-    <li>
-      <img src="" alt="" />
-      <p>Bones & Joints</p>
+    <li class="text-center shrink-0">
+      <img
+        class="w-20 h-20 lg:w-[8vw] lg:h-[8vw] block mx-auto mb-2 bg-sky-200 hover:bg-danger rounded-full"
+        [src]="staticSpecialityIcon['bones']"
+        alt=""
+      />
+      <p class="text-secondary text-[3vw] md:text-[2vw] font-semibold">Orthopedics</p>
     </li>
-    <li>
-      <img src="" alt="" />
-      <p>Eye Care</p>
+    <li class="text-center shrink-0">
+      <img
+        class="w-20 h-20 lg:w-[8vw] lg:h-[8vw] block mx-auto mb-2 bg-sky-200 hover:bg-danger rounded-full"
+        [src]="staticSpecialityIcon['eye']"
+        alt=""
+      />
+      <p class="text-secondary text-[3vw] md:text-[2vw] font-semibold">Ophthalmology</p>
     </li>
-    <li>
-      <img src="" alt="" />
-      <p>Dental Care</p>
+    <li class="text-center shrink-0">
+      <img
+        class="w-20 h-20 lg:w-[8vw] lg:h-[8vw] block mx-auto mb-2 bg-sky-200 hover:bg-danger rounded-full"
+        [src]="staticSpecialityIcon['dental']"
+        alt=""
+      />
+      <p class="text-secondary text-[3vw] md:text-[2vw] font-semibold">Dentistry</p>
     </li>
-    <li>
-      <img src="" alt="" />
-      <p>Brain & Nerves</p>
+    <li class="text-center shrink-0">
+      <img
+        class="w-20 h-20 lg:w-[8vw] lg:h-[8vw] block mx-auto mb-2 bg-sky-200 hover:bg-danger rounded-full"
+        [src]="staticSpecialityIcon['brain']"
+        alt=""
+      />
+      <p class="text-secondary text-[3vw] md:text-[2vw] font-semibold">Neurology</p>
     </li>
-    <li>
-      <img src="" alt="" />
-      <p>Children's Health</p>
+    <li class="text-center shrink-0">
+      <img
+        class="w-20 h-20 lg:w-[8vw] lg:h-[8vw] block mx-auto mb-2 bg-sky-200 hover:bg-danger rounded-full"
+        [src]="staticSpecialityIcon['children']"
+        alt=""
+      />
+      <p class="text-secondary text-[3vw] md:text-[2vw] font-semibold">Pediatrics</p>
     </li>
   </ul>
 </div>
