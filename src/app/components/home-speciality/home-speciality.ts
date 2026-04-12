@@ -8,8 +8,17 @@ import { PhotoService } from '../../services/photo-service';
   styleUrl: './home-speciality.css',
 })
 export class HomeSpeciality {
-  staticSpecialityIcon: { [key: string]: string };
+  speciality: { [key: string]: string };
+  specialityKeys: string[];
   constructor(private photo: PhotoService) {
-    this.staticSpecialityIcon = this.photo.staticSpecialityIcon;
+    this.speciality = {
+      Cardiology: this.photo.staticSpecialityIcon.heart,
+      Orthopedics: this.photo.staticSpecialityIcon.bones,
+      Ophthalmology: this.photo.staticSpecialityIcon.eye,
+      Dentistry: this.photo.staticSpecialityIcon.dental,
+      Neurology: this.photo.staticSpecialityIcon.brain,
+      Pediatrics: this.photo.staticSpecialityIcon.children,
+    };
+    this.specialityKeys = Object.keys(this.speciality);
   }
 }

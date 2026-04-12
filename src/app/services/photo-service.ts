@@ -6,10 +6,12 @@ import { Injectable } from '@angular/core';
 export class PhotoService {
   static = {
     logo: 'logo.png',
+    logo1: 'logo1.png',
     headerPhoto: 'homeHeader.png',
     footerPhoto: 'homeFooter.png',
     headerDisc: 'headerDisc.png',
     availableIcon: 'icon-ethereum.svg',
+    outer: 'outer.png',
   };
   staticSpecialityIcon = {
     heart: 'heartHealth.png',
@@ -18,7 +20,5 @@ export class PhotoService {
     dental: 'DentalCare.png',
     brain: 'brain.png',
     children: 'ch.png',
-    general: 'Generalphysician.svg',
-    gastroenterlogist: 'nn.png',
   };
 }

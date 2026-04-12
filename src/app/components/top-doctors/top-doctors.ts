@@ -4,10 +4,11 @@ import { DoctorService } from '../../services/doctor-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-top-doctors',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './top-doctors.html',
   styleUrl: './top-doctors.css',
 })

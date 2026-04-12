@@ -9,6 +9,7 @@
   <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
     @for (doctor of allDoctors().slice(0, 10); track doctor._id) {
       <article
+        [routerLink]="['/appointment', doctor._id]"
         class="h-auto flex flex-col overflow-hidden p-[10px] bg-[#14263c] hover:bg-[#004b84]"
       >
         <div class="overflow-hidden w-full h-[70%] lg:h-[65%] p-2 shrink-0">

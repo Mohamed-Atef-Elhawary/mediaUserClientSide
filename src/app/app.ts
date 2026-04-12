@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';
-import { DoctorService } from './services/doctor-service';
+import { AuthService } from './services/auth-service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +12,8 @@ import { DoctorService } from './services/doctor-service';
 })
 export class App {
   protected readonly title = signal('mediaFlow');
-  constructor(private doctor: DoctorService) {}
-  ngOnInit() {
-    this.doctor.doctors().subscribe(console.log);
+
+  constructor(private auth: AuthService) {
+    // console.log(this.auth.authView());
   }
 }
