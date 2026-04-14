@@ -1,1 +1,1 @@
-export type AuthView = 'outer' | 'signin' | 'signup' | 'loading' | 'authorized';
+export type AuthView = 'outer' | 'signin' | 'signup' | 'authorized';

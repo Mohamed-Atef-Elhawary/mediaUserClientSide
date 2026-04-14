@@ -2,7 +2,7 @@ import { computed, inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { AuthService } from '../services/auth-service';
 
-export const authGuardGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   let authView = computed(() => authService.authView());
   return authView() === 'authorized';

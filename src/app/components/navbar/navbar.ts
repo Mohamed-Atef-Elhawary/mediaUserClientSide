@@ -17,6 +17,7 @@ import { OuterPage } from '../../pages/outer-page/outer-page';
 export class Navbar {
   logo: string;
   logo1: string;
+
   bars = faBars;
   links: string[] = ['home', 'doctors', 'about', 'contact'];
   constructor(
@@ -34,9 +35,20 @@ export class Navbar {
   authView = computed(() => {
     return this.authService.authView();
   });
-
+  userImage = computed(() => {
+    return this.authService.userImage();
+  });
+  signinOrHome() {
+    if (this.authView() === 'authorized') {
+      this.router.navigate(['/home']);
+    } else {
+      this.router.navigate(['outer']);
+      this.authService.authView.set('outer');
+    }
+    console.log('authView', this.authView());
+    console.log('authView service', this.authService.authView());
+  }
   update(state: AuthView) {
-    this.authService.authView.set(state);
     this.router.navigate(['register', state]);
     this.show();
   }

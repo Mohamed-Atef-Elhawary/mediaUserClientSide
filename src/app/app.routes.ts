@@ -1,16 +1,19 @@
 import { Routes } from '@angular/router';
-import { authGuardGuard } from './guards/auth-guard-guard';
+import { authGuard } from './guards/auth-guard';
+import { redirectGuard } from './guards/redirect-guard';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'outer', pathMatch: 'full' },
   {
-    path: '',
+    path: 'outer',
     loadComponent: () => import('./pages/outer-page/outer-page').then((c) => c.OuterPage),
-    title: 'outer',
+    canActivate: [redirectGuard],
+    title: 'MediaFlow',
   },
   {
     path: 'home',
     loadComponent: () => import('./pages/home/home').then((c) => c.Home),
-    canActivate: [authGuardGuard],
+    canActivate: [authGuard],
   },
 
   {
@@ -29,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: 'register/:state',
-    loadComponent: () => import('./pages/appointment/appointment').then((c) => c.Appointment),
+    loadComponent: () => import('./components/register/register').then((c) => c.Register),
   },
 
   ///////////////////////////////////////////////////////////

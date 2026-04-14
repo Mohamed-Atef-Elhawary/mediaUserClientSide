@@ -18,13 +18,17 @@
       }
       <!-- logo image -->
 
-      <div class="hidden md:block cursor-pointer" routerLink="/home">
+      <!--  -->
+      <!-- {ngClass}="{'hidden':authView() === 'authorized'}" -->
+      <div class="md:block cursor-pointer" (click)="signinOrHome()">
         <img [src]="logo1" alt="" class="block w-[10vw] lg:w-[8vw] h-[4vw]" />
       </div>
       <!-- start menu -->
-      <div class="lg:hidden -order-1">
-        <fa-icon class="lg:hidden w-8 h-[1vw] sm:h-[3vh]" [icon]="bars"></fa-icon>
-      </div>
+      @if (authView() === 'authorized') {
+        <div class="lg:hidden -order-1">
+          <fa-icon class="lg:hidden w-8 h-[1vw] sm:h-[3vh]" [icon]="bars"></fa-icon>
+        </div>
+      }
       <!-- end menu -->
       <!--  end sm screen + -->
     </div>
@@ -50,19 +54,25 @@
         Sign in
       </button> -->
       <!-- [routerLink]="['/register', 'signIn']" -->
-      <button
-        (click)="update('signin')"
-        class="hover:bg-sky-400 hover:border-0 text-dark border border-secondary font-bold text-[1.5vw] py-[1vw] px-[20px] sm:px-[3vw] md:px-[2vw] shrink-0 cursor-pointer"
-      >
-        Sign in
-      </button>
+      @if (authView() === 'outer') {
+        <button
+          (click)="update('signin')"
+          class="hover:bg-sky-400 hover:border-0 text-dark border border-secondary font-bold text-[1.5vw] py-[1vw] px-[20px] sm:px-[3vw] md:px-[2vw] shrink-0 cursor-pointer"
+        >
+          Sign in
+        </button>
 
-      <button
-        (click)="update('signup')"
-        class="hidden lg:block bg-red-400 hover:bg-danger text-white font-bold text-[1.5vw] px-[2vw] py-[1vw] shrink-0 cursor-pointer"
-      >
-        Sign up
-      </button>
+        <button
+          (click)="update('signup')"
+          class="hidden lg:block bg-red-400 hover:bg-danger text-white font-bold text-[1.5vw] px-[2vw] py-[1vw] shrink-0 cursor-pointer"
+        >
+          Sign up
+        </button>
+      } @else if (authView() === 'authorized') {
+        <div class="md:block cursor-pointer">
+          <img [src]="userImage()" alt="" class="block w-[10vw] lg:w-[8vw] h-[4vw]" />
+        </div>
+      }
     </div>
   </div>
 </nav>
