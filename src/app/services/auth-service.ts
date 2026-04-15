@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoginResponse } from '../interfaces/login-response';
 
 @Injectable({
   providedIn: 'root',
@@ -32,24 +33,32 @@ export class AuthService {
   }
   userToken = signal<string | null>(localStorage.getItem('userToken'));
   userImage = signal<string | null>(localStorage.getItem('userImage'));
+  userName = signal<string | null>(localStorage.getItem('userName'));
   authView = signal<AuthView>(this.userToken() ? 'authorized' : 'outer');
 
-  updateAuthState(data: { token: string; image: string }) {
+  updateAuthState(data: LoginResponse) {
     if (data) {
       localStorage.setItem('userToken', data.token);
       localStorage.setItem('userImage', data.image);
+      localStorage.setItem('userName', data.name);
       this.userToken.set(data.token);
       this.userImage.set(data.image);
+      this.userName.set(data.name);
       this.authView.set('authorized');
       this.router.navigate(['/home']);
     } else {
-      localStorage.removeItem('userToken');
-      localStorage.removeItem('userImage');
-      this.userToken.set(null);
-      this.userImage.set(null);
-      this.authView.set('outer');
-      this.router.navigate(['/outer']);
+      this.signOut();
     }
+  }
+  signOut() {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userImage');
+    localStorage.removeItem('userName');
+    this.userToken.set(null);
+    this.userImage.set(null);
+    this.userName.set(null);
+    this.authView.set('outer');
+    this.router.navigate(['/outer']);
   }
   register(data: UserRegister): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.backendUrl}user/register`, data);

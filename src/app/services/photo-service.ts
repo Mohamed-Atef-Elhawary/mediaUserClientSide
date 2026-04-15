@@ -13,6 +13,7 @@ export class PhotoService {
     availableIcon: 'icon-ethereum.svg',
     outer: 'outer.png',
     about: 'aboutImg.avif',
+    contact: 'contact.png',
   };
   staticSpecialityIcon = {
     heart: 'heartHealth.png',

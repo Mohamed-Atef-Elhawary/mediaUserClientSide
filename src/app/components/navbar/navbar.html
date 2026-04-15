@@ -1,14 +1,15 @@
 <nav class="h-[5vw] fixed top-0 left-0 right-0 z-50">
-  <div class="flex items-center justify-between h-full mx-4 sm:mx-[5%] bg-[#fff]">
+  <div class="flex items-center justify-between h-full mx-4 sm:mx-[5%] bg-gray-50">
     <div class="flex items-center gap-6 justify-between lg:justify-start w-[55%]">
       @if (authView() === 'authorized') {
         <!--  start ul + -->
+        <!-- [:[&:not(.is-active)]:hover]:text-sky-300 -->
 
         @for (link of links; track $index) {
           <ul class="hidden lg:flex items-center gap-x-8 sm:order-1 capitalize text-lg">
             <li
-              class="cursor-pointer hover:text-sky-300 text-[1.5vw]"
-              routerLinkActive="text-primary  font-bold"
+              routerLinkActive="text-primary  font-bold active"
+              class="cursor-pointer text-[1.5vw] not-[.active]:hover:text-sky-300"
               [routerLink]="['/', link]"
             >
               {{ link }}
@@ -24,37 +25,50 @@
         <img [src]="logo1" alt="" class="block w-[10vw] lg:w-[8vw] h-[4vw]" />
       </div>
       <!-- start menu -->
+      <!-- bars and x -->
       @if (authView() === 'authorized') {
         <div class="lg:hidden -order-1">
-          <fa-icon class="lg:hidden w-8 h-[1vw] sm:h-[3vh]" [icon]="bars"></fa-icon>
+          @if (shownavLinks()) {
+            <fa-icon
+              (click)="switchVavLinks()"
+              class="w-8 h-[1vw] sm:h-[3vh]"
+              [icon]="xmark"
+            ></fa-icon>
+          } @else {
+            <fa-icon
+              (click)="switchVavLinks()"
+              class="w-8 h-[1vw] sm:h-[3vh]"
+              [icon]="bars"
+            ></fa-icon>
+          }
         </div>
       }
       <!-- end menu -->
       <!--  end sm screen + -->
     </div>
-
-    <div class="flex gap-3">
-      <!-- <button
+    @if (authView() === 'outer') {
+      <div class="flex gap-3">
+        <!-- <button
         class="sm:text-xs md:text-lg text-white font-semibold py-2 px-4 bg-primary rounded-full"
       >
         Sign in
       </button> -->
 
-      <!-- <button
+        <!-- <button
         class="bg-sky-400 hover:bg-primary text-white font-semibold text-xs px-3 py-1.5 md:text-lg md:px-6 md:py-2 shrink-0 whitespace-nowrap"
       >
         Sign in
       </button> -->
-      <!-- <button
+        <!-- <button
         class="bg-sky-400 hover:bg-primary text-white font-semibold text-[2vw] px-3 py-1.5 md:text-lg md:px-6 md:py-2 shrink-0 whitespace-nowrap"
       > -->
-      <!-- <button
+        <!-- <button
         class="bg-sky-400 hover:bg-primary text-white font-semibold text-[2vw] px-[20px] py-[px] sm:px-[3vw] sm:py-[1vw] md:px-[2vw] md:py-[0.5vw] shrink-0 whitespace-nowrap"
       >
         Sign in
       </button> -->
-      <!-- [routerLink]="['/register', 'signIn']" -->
-      @if (authView() === 'outer') {
+        <!-- [routerLink]="['/register', 'signIn']" -->
+
         <button
           (click)="update('signin')"
           class="hover:bg-sky-400 hover:border-0 text-dark border border-secondary font-bold text-[1.5vw] py-[1vw] px-[20px] sm:px-[3vw] md:px-[2vw] shrink-0 cursor-pointer"
@@ -68,11 +82,32 @@
         >
           Sign up
         </button>
-      } @else if (authView() === 'authorized') {
-        <div class="md:block cursor-pointer">
-          <img [src]="userImage()" alt="" class="block w-[10vw] lg:w-[8vw] h-[4vw]" />
-        </div>
-      }
-    </div>
+      </div>
+    } @else if (authView() === 'authorized') {
+      <div class="md:block cursor-pointer">
+        <img
+          #switchUserMenu
+          (click)="switchShowUserMenu()"
+          [src]="userImage()"
+          alt=""
+          class="block w-[10vw] lg:w-[8vw] h-[4vw]"
+        />
+      </div>
+    }
+  </div>
+  <!-- user menu -->
+  <!-- calc(100vw_-_(8_*_4px) :8 is margein left and right * 4px because 1 in tailwind = 4px -->
+  <div
+    [ngClass]="showUserMenu() ? 'block' : 'hidden'"
+    class="absolute right-0 overflow-hidden text-center w-[calc(100vw_-_(8_*_4px))] sm:w-[200px] mx-4 sm:mx-[5%]"
+  >
+    <div #userMenu></div>
+  </div>
+  <!-- navlinks -->
+  <div
+    [ngClass]="shownavLinks() ? 'block' : 'hidden'"
+    class="lg:hidden absolute left-0 overflow-hidden bg-amber-300 text-center w-[calc(100vw_-_(8_*_4px))] sm:w-[calc(100vw_-_10%)] mx-4 sm:mx-[5%]"
+  >
+    <div #navLinks></div>
   </div>
 </nav>

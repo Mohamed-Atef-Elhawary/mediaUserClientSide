@@ -27,6 +27,15 @@ export const routes: Routes = [
   },
   // //////////////////////////////////////////////////////////
   {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile').then((c) => c.Profile),
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./pages/profile-settings/profile-settings').then((c) => c.ProfileSettings),
+  },
+  {
     path: 'appointment/:docId',
     loadComponent: () => import('./pages/appointment/appointment').then((c) => c.Appointment),
   },
@@ -43,7 +52,7 @@ export const routes: Routes = [
   ///////////////////////////////////////////////////////////
 
   {
-    path: 'all',
-    loadComponent: () => import('./components/all-doctors/all-doctors').then((c) => c.AllDoctors),
+    path: 'm',
+    loadComponent: () => import('./components/user-menu/user-menu').then((c) => c.UserMenu),
   },
 ];

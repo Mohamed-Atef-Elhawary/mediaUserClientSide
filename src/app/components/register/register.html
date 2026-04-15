@@ -53,6 +53,24 @@
             <div class="text-danger">Enter a strong password</div>
           }
         }
+
+        @if (authView() === 'signin') {
+          <p class="text-secondary">
+            New to MediaFlow?
+            <span (click)="update('signup')" class="text-primary cursor-pointer"
+              >Create an account</span
+            >
+          </p>
+        } @else if (authView() === 'signup') {
+          <p class="text-secondary">
+            Already have an account?<span
+              (click)="update('signin')"
+              class="text-primary cursor-pointer"
+            >
+              Sign in →</span
+            >
+          </p>
+        }
       </div>
 
       @if (authView() === 'signup') {
@@ -89,23 +107,5 @@
         {{ authView() === 'signin' ? 'Sign In' : 'Sign Up' }}
       </button>
     </form>
-
-    @if (authView() === 'signin') {
-      <p class="text-secondary">
-        New to MediaFlow?
-        <span (click)="update('signup')" class="text-primary cursor-pointer"
-          >Create an account</span
-        >
-      </p>
-    } @else if (authView() === 'signup') {
-      <p class="text-secondary">
-        Already have an account?<span
-          (click)="update('signin')"
-          class="text-primary cursor-pointer"
-        >
-          Sign in →</span
-        >
-      </p>
-    }
   </div>
 </div>

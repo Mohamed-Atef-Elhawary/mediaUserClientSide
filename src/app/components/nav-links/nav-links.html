@@ -1,0 +1,38 @@
+<div class="bg-white border border-gray-300 bg-red-0 w-full p-4 overflow-hidden">
+  <ul class="flex flex-col gap-4 whitespace-nowrap">
+    <li routerLink="/home" routerLinkActive="!bg-primary active group ">
+      <div
+        class="flex gap-2 items-center p-1 cursor-pointer group-[.active]:hover:bg-transparent hover:bg-sky-100"
+      >
+        <fa-icon [icon]="homeIcon"></fa-icon>
+        <p class="group-[.active]:text-white text-secondary">Home</p>
+      </div>
+    </li>
+
+    <li routerLink="/doctors" routerLinkActive="bg-primary active group">
+      <div
+        class="flex gap-2 items-center p-1 cursor-pointer hover:bg-sky-100 group-[.active]:hover:bg-transparent"
+      >
+        <fa-icon [icon]="doctorIcon"></fa-icon>
+        <p class="text-secondary group-[.active]:text-white">Doctors</p>
+      </div>
+    </li>
+
+    <li routerLink="/about" routerLinkActive="bg-primary active group">
+      <div
+        class="flex gap-2 items-center p-1 cursor-pointer group-[.is-active]:hover:bg-transparent hover:bg-sky-100"
+      >
+        <fa-icon [icon]="aboutIcon"></fa-icon>
+        <p class="text-secondary group-[.active]:text-white">About</p>
+      </div>
+    </li>
+    <li routerLinkActive="bg-primary active group" routerLink="/contact">
+      <div
+        class="flex gap-2 items-center p-1 cursor-pointer group-[.active]:hover:bg-transparent hover:bg-sky-100"
+      >
+        <fa-icon [icon]="contactIcon"></fa-icon>
+        <p class="text-secondary group-[.active]:text-white">Contact</p>
+      </div>
+    </li>
+  </ul>
+</div>
