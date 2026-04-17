@@ -9,7 +9,7 @@
           <ul class="hidden lg:flex items-center gap-x-8 sm:order-1 capitalize text-lg">
             <li
               routerLinkActive="text-primary  font-bold active"
-              class="cursor-pointer text-[1.5vw] not-[.active]:hover:text-sky-300"
+              class="cursor-pointer text-[1.5vw] :[&:not-[.active]:hover]:text-sky-300"
               [routerLink]="['/', link]"
             >
               {{ link }}

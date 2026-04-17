@@ -55,7 +55,7 @@ export class Navbar implements AfterViewInit {
 
   async getUserMenu() {
     const menuComponent = await import('../user-menu/user-menu').then((c) => c.UserMenu);
-    console.log('menuComponent', menuComponent);
+    // console.log('menuComponent', menuComponent);
     this.myMenue.clear();
     this.myMenue.createComponent(menuComponent);
   }

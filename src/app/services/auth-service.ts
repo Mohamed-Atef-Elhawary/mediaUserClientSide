@@ -8,11 +8,14 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoginResponse } from '../interfaces/login-response';
+import { ApiUserInfo } from '../interfaces/api-user-info';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  userInfo = signal<ApiUserInfo | null>(null);
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -30,6 +33,11 @@ export class AuthService {
     //   },
     //   { allowSignalWrites: true },
     // );
+
+    let jsonObj = localStorage.getItem('userInfo');
+    if (jsonObj) {
+      this.userInfo.set(JSON.parse(jsonObj));
+    }
   }
   userToken = signal<string | null>(localStorage.getItem('userToken'));
   userImage = signal<string | null>(localStorage.getItem('userImage'));
@@ -49,6 +57,21 @@ export class AuthService {
     } else {
       this.signOut();
     }
+  }
+
+  userDataSetser(data: ApiUserInfo): void {
+    if (data.image) {
+      localStorage.setItem('userImage', data.image);
+      this.userImage.set(data.image);
+    }
+    localStorage.setItem('userName', data.name);
+    this.userName.set(data.name);
+    this.userInfo.set(data);
+    localStorage.setItem('userInfo', JSON.stringify(data));
+  }
+  userDataRemover() {
+    localStorage.removeItem('userInfo');
+    this.userInfo.set(null);
   }
   signOut() {
     localStorage.removeItem('userToken');

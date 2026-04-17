@@ -1,1 +1,42 @@
-<p>appointment works!</p>
+<div class="py-6">
+  <div class="flex flex-col md:flex-row gap-6 bg-amber-300">
+    <div class="w-full h-full md:w-[30%]">
+      <img class="w-full h-full object-cover" [src]="myDoctor.image" alt="" />
+    </div>
+    <div class="border-2 border-gray-200 grow p-6 flex flex-col gap-6 bg-white">
+      <section>
+        <h1 class="font-semibold text-2xl md:text-[3vw] text-dark">
+          {{ myDoctor.name }}
+          @if (myDoctor.available) {
+            <fa-icon [icon]="checkIcon" class="text-primary"></fa-icon>
+          } @else {
+            <fa-icon [icon]="xIcon" class="text-secondary text-xl md:text-[2.5vw]"></fa-icon>
+          }
+        </h1>
+        <p class="text-xl md:text-[2vw] text-secondary">
+          {{ myDoctor.degree }}-{{ myDoctor.speciality }}
+          <span class="border py-2 px-3 rounded-full">{{ myDoctor.experience }} Years</span>
+        </p>
+      </section>
+      <section class="text-secondary">
+        <h2 class="font-medium text-2xl md:text-[2.5vw]">
+          About
+          <fa-icon [icon]="infoIcon"></fa-icon>
+        </h2>
+        <p class="text-xl md:text-[2vw]">{{ myDoctor.about }}</p>
+      </section>
+      <p class="text-secondary font-medium text-2xl md:text-[2.5vw]">
+        Appointment price:
+
+        <span class="text-dark font-medium">{{
+          myDoctor.consultationFee | currency: 'EGP' : 'symbol'
+        }}</span>
+      </p>
+    </div>
+  </div>
+
+  <app-related-doctors
+    [docId]="myDoctor._id"
+    [docSpeciality]="myDoctor.speciality"
+  ></app-related-doctors>
+</div>

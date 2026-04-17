@@ -1,1 +1,146 @@
-<p>profile-settings works!</p>
+<div class="min-h-[50vh]">
+  <form [formGroup]="userForm" (ngSubmit)="submit()">
+    <div class="flex flex-col gap-6 border-b border-b-4 border-gray-200 mb-6">
+      <div class="w-full h-[50vw] sm:h-[30vw]">
+        <label for="file"
+          ><img class="w-full h-full object-cover cursor-pointer" [src]="userInfo()?.image" alt=""
+        /></label>
+        <!-- formControlName="image" -->
+        <input id="file" type="file" class="hidden" (change)="fileUploaded($event)" />
+      </div>
+      <h1
+        class="text-lg sm:text-[2.5vw] py-3 px-1 font-bold cursor-pointer hover:border-sky-400 hover:border-2"
+      >
+        <input type="text" formControlName="name" class="border-0 outline-0" />
+        @if (userForm.get('name')?.touched && userForm.get('name')?.invalid) {
+          @if (userForm.get('name')?.getError('required')) {
+            <p class="text-danger">Name is required</p>
+          } @else if (
+            userForm.get('name')?.getError('minlength') ||
+            userForm.get('name')?.getError('maxlength')
+          ) {
+            <p class="text-danger">Name is invalid</p>
+          }
+        }
+      </h1>
+    </div>
+
+    <div class="flex flex-col gap-6">
+      <section class="flex flex-col gap-6">
+        <h2 class="text-lg sm:text-[2vw] text-secondary font-semibold">CONTACT INFORMATION</h2>
+        <div class="flex gap-6 sm:text-[1.5vw]">
+          <p class="text-dark">Email id:</p>
+          <p class="text-primary cursor-pointer hover:border-sky-400 hover:border-2">
+            <input type="text" formControlName="email" class="border-0 outline-0" />
+            @if (userForm.get('email')?.touched && userForm.get('email')?.invalid) {
+              @if (userForm.get('email')?.getError('required')) {
+                <p class="text-danger">Email is required</p>
+              } @else if (userForm.get('email')?.getError('email')) {
+                <p class="text-danger">Email is invalid</p>
+              }
+            }
+          </p>
+        </div>
+        <div class="flex gap-6 sm:text-[1.5vw]">
+          <p class="text-dark">Phone:</p>
+
+          <p class="text-primary cursor-pointer hover:border-sky-400 hover:border-2">
+            <input type="text" formControlName="phone" class="border-0 outline-0" />
+            @if (userForm.get('phone')?.touched && userForm.get('phone')?.invalid) {
+              @if (userForm.get('phone')?.getError('required')) {
+                <p class="text-danger">Phone is required</p>
+              } @else if (userForm.get('phone')?.getError('pattern')) {
+                <p class="text-danger">Phone is invalid</p>
+              }
+            }
+          </p>
+        </div>
+        <div class="flex gap-6 sm:text-[1.5vw]">
+          <p class="text-dark">Address:</p>
+
+          <div formGroupName="address">
+            <p
+              class="text-primary cursor-pointer hover:border-sky-400 hover:border-2 group my-address"
+            >
+              <input
+                type="text"
+                formControlName="line1"
+                class="border-0 outline-0 group-[.my-address]:hover:border-b"
+              />
+              @if (
+                userForm.get('address.line1')?.touched && userForm.get('address.line1')?.invalid
+              ) {
+                @if (userForm.get('address.line1')?.getError('required')) {
+                  <p class="text-danger">Address is required</p>
+                } @else if (
+                  userForm.get('address.line1')?.getError('minlength') ||
+                  userForm.get('address.line1')?.getError('maxlength')
+                ) {
+                  <p class="text-danger">Address is invalid</p>
+                }
+              }
+              <br />
+
+              <input
+                type="text"
+                formControlName="line2"
+                class="border-0 outline-0 group-[.my-address]:hover:border-t"
+              />
+              @if (
+                userForm.get('address.line2')?.touched && userForm.get('address.line2')?.invalid
+              ) {
+                @if (userForm.get('address.line2')?.getError('required')) {
+                  <p class="text-danger">Address is required</p>
+                } @else if (
+                  userForm.get('address.line2')?.getError('minlength') ||
+                  userForm.get('address.line2')?.getError('maxlength')
+                ) {
+                  <p class="text-danger">Address is invalid</p>
+                }
+              }
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="flex flex-col gap-6">
+        <h2 class="text-lg sm:text-[2vw] text-secondary font-semibold">BASIC INFORMATION</h2>
+        <div class="flex gap-6 sm:text-[1.5vw]">
+          <p class="text-dark">Gender:</p>
+          <select
+            formControlName="gender"
+            class="outline-0 text-primary cursor-pointer hover:border-sky-400 hover:border-2"
+          >
+            <option class="text-secondary" value="female">female</option>
+            <option class="text-secondary" value="male">male</option>
+          </select>
+        </div>
+        <div class="flex gap-6 sm:text-[1.5vw]">
+          <p class="text-dark">Birthday:</p>
+
+          <p class="text-primary cursor-pointer hover:border-sky-400 hover:border-2">
+            <input
+              type="date"
+              formControlName="dateOfBirth"
+              class="border-0 outline-0"
+              [min]="minDate"
+              [max]="maxDate"
+            />
+            @if (userForm.get('dateOfBirth')?.touched && userForm.get('dateOfBirth')?.invalid) {
+              <
+              <p class="text-danger">Date Of birth is required</p>
+            }
+          </p>
+        </div>
+      </section>
+      <div>
+        <button
+          [disabled]="userForm.invalid"
+          [ngClass]="userForm.invalid ? 'cursor-not-allowed' : 'cursor-pointer'"
+          class="w-full md:w-[60%] bg-red-400 hover:bg-danger text-white font-semibold text-[3vw] px-1 py-2 lg:text-[1.5vw] md:px-3 md:py-4 rounded-lg shrink-0"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

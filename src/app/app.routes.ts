@@ -52,7 +52,8 @@ export const routes: Routes = [
   ///////////////////////////////////////////////////////////
 
   {
-    path: 'm',
-    loadComponent: () => import('./components/user-menu/user-menu').then((c) => c.UserMenu),
+    path: 'r',
+    loadComponent: () =>
+      import('./components/related-doctors/related-doctors').then((c) => c.RelatedDoctors),
   },
 ];

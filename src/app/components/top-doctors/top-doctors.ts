@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, computed } from '@angular/core';
 import { DoctorData } from '../../interfaces/doctor-data';
 import { DoctorService } from '../../services/doctor-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,15 +13,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './top-doctors.css',
 })
 export class TopDoctors implements OnInit {
-  allDoctors = signal<DoctorData[]>([]);
   availableIcon = faCircleCheck;
   notAvailableIcon = faCircleXmark;
   constructor(private docotr: DoctorService) {}
 
+  allDoctors = computed(() => {
+    return this.docotr.allDoctors();
+  });
   ngOnInit(): void {
     this.docotr.doctors().subscribe({
       next: (response) => {
-        this.allDoctors.update((data) => response.data);
+        this.docotr.allDoctors.set(response.data);
       },
     });
   }
