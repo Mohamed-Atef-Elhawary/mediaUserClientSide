@@ -41,4 +41,11 @@ export class UserService {
       }),
     });
   }
+  appointmentsList(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.backendUrl}user/appointments`, {
+      headers: new HttpHeaders({
+        authorization: `Bearer ${this.auth.userToken()}`,
+      }),
+    });
+  }
 }
