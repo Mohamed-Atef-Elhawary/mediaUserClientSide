@@ -27,7 +27,7 @@ export class MyAppointment implements OnInit {
     this.userService.appointmentsList().subscribe({
       next: (res) => {
         if (res.data) {
-          this.myAppointments.set(res.data);
+          this.myAppointments.set(res.data.reverse());
         }
       },
       error: (err) => {
@@ -38,5 +38,9 @@ export class MyAppointment implements OnInit {
   }
   getAppointmentDate(date: string): Date {
     return new Date(Number(date));
+  }
+
+  cancelAppointment(appointmentId: string) {
+    this.userService.cancleAppointment(appointmentId).subscribe(console.log);
   }
 }

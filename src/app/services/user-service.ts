@@ -48,4 +48,15 @@ export class UserService {
       }),
     });
   }
+  cancleAppointment(appointmentId: string): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      `${environment.backendUrl}user/cancel`,
+      { appointmentId },
+      {
+        headers: new HttpHeaders({
+          authorization: `Bearer ${this.auth.userToken()}`,
+        }),
+      },
+    );
+  }
 }

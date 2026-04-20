@@ -1,9 +1,11 @@
 import { NgClass } from '@angular/common';
-import { Component, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, Input, input, OnInit, signal } from '@angular/core';
 import { AppointmentRequest } from '../../interfaces/appointment-request';
 import { UserService } from '../../services/user-service';
 import { ToastrService } from 'ngx-toastr';
 import { toastConfig } from '../../config/toastConfig';
+import { DoctorData } from '../../interfaces/doctor-data';
+import { DoctorService } from '../../services/doctor-service';
 @Component({
   selector: 'app-appointment-booking',
   imports: [NgClass],
@@ -13,7 +15,9 @@ import { toastConfig } from '../../config/toastConfig';
 export class AppointmentBooking implements OnInit {
   daysOfWeek: string[] = ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'];
   dayNumber: number | undefined = undefined;
+
   timeArray: { time: string }[] = [];
+
   availableBook: {
     dayName: string;
     date: number;
@@ -25,15 +29,41 @@ export class AppointmentBooking implements OnInit {
 
   appointmentTime = signal<string | undefined>(undefined);
   appointmentDate = signal<number | undefined>(undefined);
-  docId = input.required<string>();
+
+  @Input({ required: true }) docId!: string;
+  myDoctor: DoctorData = {} as DoctorData;
+
   constructor(
     private userService: UserService,
+    private doctor: DoctorService,
+    private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
   ) {}
   ngOnInit() {
-    this.getAvailableBook();
+    // this.getDoctor();
+    // this.getAvailableBook();
+  }
+  ngOnChanges() {
+    // console.log('kkkkkkkkkkkkkkkk');
+    // console.log(this.docId);
+    if (this.docId) {
+      this.getDoctor();
+    }
   }
 
+  getDoctor() {
+    this.doctor.doctor(this.docId).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.myDoctor = res.data;
+          this.getAvailableBook();
+        }
+      },
+      error: (err) => {
+        console.log('error from getDoctor ', err);
+      },
+    });
+  }
   getAvailableBook() {
     const today = new Date();
     for (let i = 0; i < 7; i++) {
@@ -60,9 +90,18 @@ export class AppointmentBooking implements OnInit {
           hour: '2-digit',
           minute: '2-digit',
         });
-        availableTime.push({
-          time: formatedTime,
-        });
+
+        if (
+          !(
+            this.myDoctor.appointmentBooked[date] &&
+            this.myDoctor.appointmentBooked[date].includes(formatedTime)
+          )
+        ) {
+          availableTime.push({
+            time: formatedTime,
+          });
+        }
+
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }
       this.availableBook.push({
@@ -72,7 +111,7 @@ export class AppointmentBooking implements OnInit {
       });
     }
 
-    // console.log(this.availableBook);
+    console.log(this.availableBook);
   }
 
   getDateNumber(dayName: string) {
@@ -86,7 +125,7 @@ export class AppointmentBooking implements OnInit {
   }
 
   bookAppointment() {
-    let docId = this.docId();
+    let docId = this.docId;
     let appointmentDate = this.appointmentDate();
     let appointmentTime = this.appointmentTime();
 

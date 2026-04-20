@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   ElementRef,
+  Signal,
   signal,
   ViewChild,
   ViewContainerRef,
@@ -30,7 +31,6 @@ export class Navbar implements AfterViewInit {
   xmark = faXmark;
   bars = faBars;
   links: string[] = ['home', 'doctors', 'about', 'contact'];
-  showUserMenu = signal<boolean>(false);
   shownavLinks = signal<boolean>(false);
   @ViewChild('userMenu', { read: ViewContainerRef }) myMenue!: ViewContainerRef;
   @ViewChild('switchUserMenu', { read: ElementRef }) mydiv!: ElementRef;
@@ -43,12 +43,18 @@ export class Navbar implements AfterViewInit {
     this.logo = this.photo.static.logo;
     this.logo1 = this.photo.static.logo1;
   }
+  showUserMenu: Signal<boolean> = computed(() => this.authService.showUserMenu());
   ngAfterViewInit(): void {
     this.getUserMenu();
     this.getNavLinks();
+    console.log('defore error');
+    console.log('authView', this.authService.authView());
     document.addEventListener('click', (event) => {
-      if (event.target !== this.mydiv.nativeElement) {
-        this.showUserMenu.set(false);
+      if (this.authService.authView() === 'authorized') {
+        if (event.target !== this.mydiv.nativeElement) {
+          // this.showUserMenu.set(false);
+          this.authService.showUserMenu.set(false);
+        }
       }
     });
   }
@@ -60,7 +66,7 @@ export class Navbar implements AfterViewInit {
     this.myMenue.createComponent(menuComponent);
   }
   switchShowUserMenu() {
-    this.showUserMenu.update((v) => !v);
+    this.authService.showUserMenu.update((v) => !v);
     if (this.showUserMenu()) {
       this.shownavLinks.set(false);
     }

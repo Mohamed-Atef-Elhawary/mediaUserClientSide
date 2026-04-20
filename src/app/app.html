@@ -3,7 +3,9 @@
   <div class="grow pt-[5vw]">
     <router-outlet></router-outlet>
   </div>
-  <div>
-    <app-footer></app-footer>
-  </div>
+  @if (authView() === 'authorized') {
+    <div>
+      <app-footer></app-footer>
+    </div>
+  }
 </div>

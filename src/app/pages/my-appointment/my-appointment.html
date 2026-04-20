@@ -3,7 +3,9 @@
     <h1 class="py-6 font-semibold text-2lg md:text-[1.5vw]">My Appointments</h1>
     <div class="flex flex-col gep-4"></div>
     @for (appointment of myAppointments(); track $index) {
-      <div class="flex flex-col md:flex-row justify-between border-b-2 pb-2 border-gray-200">
+      <div
+        class="flex flex-col gap-2 md:gap-0 md:flex-row justify-between border-b-2 pb-2 border-gray-200"
+      >
         <div class="flex flex-col sm:flex-row gap-4 p-2 w-full md:w-[70%]">
           <div class="w-full sm:w-[200px]">
             <img class="w-full h-full object-cover" [src]="appointment.docData.image" alt="" />
@@ -27,19 +29,20 @@
               </p>
             </section>
             <p class="font-medium md:text-[1.4vw] text-gray-600">
-              Booking Date
+              Booking Data
               <span class="text-secondary">{{ getAppointmentDate(appointment.date) | date }}</span>
             </p>
           </div>
         </div>
         <div class="w-full md:w-[30%] flex flex-col gap-4 justify-center p-2">
           <p class="font-medium md:text-[1.4vw] text-gray-600">
-            Appointment Date: <span class="text-secondary">{{ appointment.appointmentDate }}</span>
+            Appointment Day: <span class="text-secondary">{{ appointment.appointmentDate }}</span>
           </p>
           <p class="font-medium md:text-[1.4vw] text-gray-600">
             Appointment Time: <span class="text-secondary">{{ appointment.appointmentTime }}</span>
           </p>
           <button
+            (click)="cancelAppointment(appointment._id)"
             class="border-2 border-secondary sm:w-[50%] md:w-full py-1 px-3 md:text-[1.4vw] font-medium text-dark hover:text-white hover:bg-primary hover:border-0"
           >
             Cancel Appointment

@@ -15,6 +15,7 @@ import { ApiUserInfo } from '../interfaces/api-user-info';
 })
 export class AuthService {
   userInfo = signal<ApiUserInfo | null>(null);
+  showUserMenu = signal<boolean>(false);
 
   constructor(
     private http: HttpClient,
@@ -78,6 +79,7 @@ export class AuthService {
     localStorage.removeItem('userToken');
     localStorage.removeItem('userImage');
     localStorage.removeItem('userName');
+    this.userDataRemover();
     this.userToken.set(null);
     this.userImage.set(null);
     this.userName.set(null);

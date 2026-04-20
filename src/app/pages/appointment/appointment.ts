@@ -44,7 +44,8 @@ export class Appointment implements OnInit {
       next: (res) => {
         if (res.success) {
           this.myDoctor = res.data;
-          console.log(res.data);
+          // console.log(this.myDoctor);
+          // console.log(res.data);
           this.cdr.detectChanges();
         }
       },

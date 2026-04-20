@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth-guard';
 import { redirectGuard } from './guards/redirect-guard';
-
+import { profileSettingsResolver } from './resolvers/profile-settings-resolver';
 export const routes: Routes = [
   { path: '', redirectTo: 'outer', pathMatch: 'full' },
   {
@@ -29,11 +29,13 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadComponent: () => import('./pages/profile/profile').then((c) => c.Profile),
+    resolve: { profileResolver: profileSettingsResolver },
   },
   {
     path: 'settings',
     loadComponent: () =>
       import('./pages/profile-settings/profile-settings').then((c) => c.ProfileSettings),
+    resolve: { profileResolver: profileSettingsResolver },
   },
   {
     path: 'appointment/:docId',

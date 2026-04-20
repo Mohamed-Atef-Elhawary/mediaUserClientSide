@@ -29,6 +29,7 @@ export class UserMenu {
   });
 
   signOut() {
+    this.auth.showUserMenu.set(false);
     this.auth.signOut();
   }
 }

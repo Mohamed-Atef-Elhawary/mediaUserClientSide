@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, computed } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user-service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { toastConfig } from '../../config/toastConfig';
 import { AuthService } from '../../services/auth-service';
@@ -28,13 +28,43 @@ export class ProfileSettings {
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
   userInfo = computed(() => {
     return this.auth.userInfo();
   });
 
   ngOnInit() {
+    const resolveObj = this.route.snapshot;
+    const infoObj = resolveObj.data['profileResolver'];
+    if (infoObj.success) {
+      this.auth.userDataSetser(infoObj.data);
+      this.prepareUserInfo();
+    }
+    // console.log(resolveObj.data['profileResolver']);
     // console.log(this.userInfo()?.dateOfBirth);
+    // if (!this.userInfo()) {
+    //   this.userService.profile().subscribe({
+    //     next: (res) => {
+    //       if (res.success) {
+    //         console.log('sssssssssssssssssssssssss');
+    //         this.auth.userDataSetser(res.data);
+
+    //         this.prepareUserInfo();
+    //       }
+
+    //       console.log(res);
+    //     },
+    //     error: (err) => {
+    //       this.toastr.error(err.message, 'Error', toastConfig.errorConfig);
+    //     },
+    //   });
+    // } else {
+    //   this.prepareUserInfo();
+    // }
+  }
+  prepareUserInfo() {
+    console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', this.userInfo());
     let userBirth = new Date(this.userInfo()?.dateOfBirth || '');
     this.yearOfBirth = String(userBirth.getFullYear());
     this.monthOfBirth =
