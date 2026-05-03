@@ -1,0 +1,33 @@
+import { Directive, Host, HostListener, input } from '@angular/core';
+
+@Directive({
+  selector: '[appReviewDirective]',
+})
+export class ReviewDirective {
+  index = input.required<number>();
+  // rank = input.required<number>();
+  constructor() {}
+
+  @HostListener('mouseenter', ['$event']) onEnter(event: any) {
+    let children = event.target.parentElement.children;
+    for (let i = 0; i <= this.index(); i++) {
+      children[i].classList.add('text-primary');
+    }
+  }
+  @HostListener('mouseleave', ['$event']) onLeave(event: any) {
+    let children = event.target.parentElement.children;
+    for (let i = 0; i <= this.index(); i++) {
+      children[i].classList.remove('text-primary');
+    }
+  }
+  @HostListener('click', ['$event']) onClick(event: any) {
+    let children = [...event.currentTarget.parentElement.children];
+    children.forEach((child) => {
+      child.firstChild.classList.remove('text-primary');
+    });
+
+    for (let i = 0; i <= this.index(); i++) {
+      children[i].firstChild.classList.add('text-primary');
+    }
+  }
+}

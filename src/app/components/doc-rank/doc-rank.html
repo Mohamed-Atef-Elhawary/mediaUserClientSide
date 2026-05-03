@@ -1,16 +1,87 @@
-<div>
+<div class="flex flex-col gap-4">
   <div>
-    <div class="flex gap-2">
-      @for (icon of [1, 2, 3, 4, 5]; track $index) {
-        <div (mouseenter)="setColor($event, icon)" class="text-gray-200">
+    <h2 class="text-xl md:text-[1.4vw] font-semibold">Rate this doctor</h2>
+    <p class="md:text-[1.3vw] text-secondary">Tell others what you think.</p>
+  </div>
+  <div class="flex flex-col gap-3 lg:flex-row lg:justify-between bg-amber-300">
+    <div class="flex gap-2 text-xl lg:text-[1.4vw]">
+      @for (rank of [1, 2, 3, 4, 5]; track $index) {
+        <div appReviewDirective [index]="$index" class="text-gray-200">
           <fa-icon [icon]="starIcon"></fa-icon>
         </div>
       }
     </div>
-    <div>
-      <button>Write a review</button>
+    <div class="bg-primary text-white w-fit">
+      <button class="py-1 px-2 font-bold">Write a review</button>
     </div>
   </div>
-  <div></div>
-  <div></div>
+  <div>
+    <div class="flex items-center gap-2 text-xl md:text-[1.4vw] bg-amber-300">
+      <h2>Ratings and reviews</h2>
+      <fa-icon [icon]="arrow"></fa-icon>
+    </div>
+  </div>
+  <div class="flex gap-4">
+    <div class="w-fit sm:w-[20%] shrink-0">
+      <p class="text-[50px]">{{ ranking().rank.toFixed(1) }}</p>
+      <div class="flex gap-[2px]">
+        @for (rank of [1, 2, 3, 4, 5]; track $index) {
+          <div class="relative w-fit">
+            <div class="text-gray-300">
+              <fa-icon class="text-[12px]" [icon]="starIcon"></fa-icon>
+            </div>
+            @if (rank <= ranking().rank) {
+              <div class="absolute top-0 left-0 overflow-hidden text-primary">
+                <fa-icon class="text-[12px]" [icon]="starIcon"></fa-icon>
+              </div>
+            } @else if (rank === starIconLatestPart().rank) {
+              <div
+                [ngStyle]="{ width: starIconLatestPart().lastRank + '%' }"
+                class="absolute top-0 left-0 overflow-hidden text-primary"
+              >
+                <fa-icon class="text-[12px]" [icon]="starIcon"></fa-icon>
+              </div>
+            }
+          </div>
+        }
+      </div>
+      <p>reviews</p>
+    </div>
+    <div class="sm:w-[80%] flex flex-col grow">
+      <div class="flex gap-2 items-center w-full">
+        <p class="text-secondary text-[12px]">5</p>
+        <div class="bg-gray-200 h-[8px] grow-1 rounded-full overflow-hidden">
+          <div class="h-full"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 items-center w-full">
+        <p class="text-secondary text-[12px]">4</p>
+        <div class="bg-gray-200 h-[8px] grow-1 rounded-full overflow-hidden">
+          <div class="h-full"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 items-center w-full">
+        <p class="text-secondary text-[12px]">3</p>
+        <div class="bg-gray-200 h-[8px] grow-1 rounded-full overflow-hidden">
+          <div class="h-full"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 items-center w-full">
+        <p class="text-secondary text-[12px]">2</p>
+        <div class="bg-gray-200 h-[8px] grow-1 rounded-full overflow-hidden">
+          <div class="h-full"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 items-center w-full">
+        <p class="text-secondary text-[12px]">1</p>
+        <div class="bg-gray-200 h-[8px] grow-1 rounded-full overflow-hidden">
+          <div class="h-full"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
